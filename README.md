@@ -1,17 +1,13 @@
-# Mina::Foreman
+# Mina::Yarn
 
-Foreman plugin for [mina](https://github.com/mina-deploy/mina)
-
-## Maintainers wanted
-
-We do not use foreman so we are looking for mainterners.
+Yarn plugin for [mina](https://github.com/mina-deploy/mina)
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'mina-foreman'
+gem 'mina-yarn'
 ```
 
 And then execute:
@@ -20,38 +16,32 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install mina-foreman
+    $ gem install mina-yarn
 
 ## Usage
 
-   require 'mina/foreman'
+   require 'mina/yarn'
 
    task :deploy => :environment do
      deploy do
        ...
-       invoke 'foreman:export'
+       invoke 'yarn:install'
        ...
      end
 
      to :launch do
-       invoke 'foreman:restart'
+       invoke 'yarn:setup'
      end
    end
 
 # Configuration
 
-    set :foreman_app # default:  -> { "#{fetch(:domain)}_#{fetch(:rails_env)}" }
-    set :foreman_user # default: -> { user }
-    set :foreman_log # default:  -> { "#{deploy_to!}/#{shared_path}/log" }
-    set :foreman_sudo # default: true
-    set :foreman_format # default: 'upstart'
-    set :foreman_location # default: '/etc/init'
-    set :foreman_procfile # default: 'Procfile'
+    set :yarn_bin # default: 'yarn'
+    set :yarn_options # default: lambda { %{--production} }
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/mina-foreman. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
-
+Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/mina-yarn. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## License
 

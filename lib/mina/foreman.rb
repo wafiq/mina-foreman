@@ -1,7 +1,7 @@
-require 'mina/foreman/tasks'
-require 'mina/foreman/version'
+require 'mina/yarn/tasks'
+require 'mina/yarn/version'
 
 module Mina
-  module Foreman
+  module Yarn
   end
 end

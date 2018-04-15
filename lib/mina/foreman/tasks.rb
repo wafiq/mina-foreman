@@ -1,44 +1,45 @@
-set :foreman_app, -> { "#{fetch(:domain)}_#{fetch(:rails_env)}" }
-set :foreman_user, -> { fetch(:user) }
-set :foreman_log,  -> { "#{fetch(:deploy_to)}/#{fetch(:shared_path)}/log" }
-set :foreman_sudo, true
-set :foreman_format, 'upstart'
-set :foreman_location, '/etc/init'
-set :foreman_procfile, 'Procfile'
+# From: https://gist.github.com/mralex/749d3e29c89ea0ea1b0fddf9ddadb057
 
-namespace :foreman do
-  desc 'Export the Procfile to Ubuntu upstart scripts'
-  task :export do
-    sudo_cmd = "sudo" if fetch(:foreman_sudo)
-    export_cmd = "#{sudo_cmd} bundle exec foreman export #{fetch(:foreman_format)} #{fetch(:foreman_location)} -a #{fetch(:foreman_app)} -u #{fetch(:foreman_user)} -d #{fetch(:deploy_to)}/#{fetch(:current_path)} -l #{fetch(:foreman_log)} -f #{fetch(:foreman_procfile)}"
+# # Modules: yarn
+# Adds settings and tasks for managing Yarn with Mina.
+#
+#     require 'mina/yarn'
 
-    command %{
-      echo "-----> Exporting foreman procfile for #{fetch(:foreman_app)}"
-      #{echo_cmd %[cd #{fetch(:deploy_to)}/#{fetch(:current_path)} ; #{export_cmd}]}
+# ## Settings
+# Any and all of these settings can be overridden in your `deploy.rb`.
+
+# ### yarn_bin
+# Sets the yarn path.
+
+set_default :yarn_bin, 'yarn'
+
+# ### yarn_options
+# Sets the options for installing packages via yarn.
+
+set_default :yarn_options, lambda { %{--production} }
+
+# ## Deploy tasks
+# These tasks are meant to be invoked inside deploy scripts, not invoked on
+# their own.
+
+namespace :yarn do
+  # ### yarn:install
+  # Installs packages.
+  desc "Install package dependencies using yarn."
+  task :install do
+    queue %{
+      echo "-----> Installing package dependencies using yarn"
+      #{echo_cmd %[#{yarn_bin} install #{yarn_options}]}
     }
   end
 
-  desc "Start the application services"
-  task :start do
-    command %{
-      echo "-----> Starting #{fetch(:foreman_app)} services"
-      #{echo_cmd %[sudo start #{fetch(:foreman_app)}]}
-    }
-  end
-
-  desc "Stop the application services"
-  task :stop do
-    command %{
-      echo "-----> Stopping #{fetch(:foreman_app)} services"
-      #{echo_cmd %[sudo stop #{fetch(:foreman_app)}]}
-    }
-  end
-
-  desc "Restart the application services"
-  task :restart do
-    command %{
-      echo "-----> Restarting #{fetch(:foreman_app)} services"
-      #{echo_cmd %[sudo start #{fetch(:foreman_app)} || sudo restart #{fetch(:foreman_app)}]}
+  # ### yarn:setup
+  # Installs latest yarn.
+  desc "Install latest version of yarn."
+  task :setup do
+    queue %{
+      echo "-----> Installing yarn"
+      #{echo_cmd %[npm install -g yarn]}
     }
   end
 end

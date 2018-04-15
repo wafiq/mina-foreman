@@ -1,17 +1,17 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'mina/foreman/version'
+require 'mina/yarn/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'mina-foreman'
-  spec.version       = Mina::Foreman::VERSION
-  spec.authors       = ['Stjepan Hadjic']
-  spec.email         = ['d4be4st@gmail.com']
+  spec.name          = 'mina-yarn'
+  spec.version       = Mina::Yarn::VERSION
+  spec.authors       = ['Wafiq Rodzuan']
+  spec.email         = ['wafiqrodzuan@gmail.com']
 
-  spec.summary       = %q{Mina plugin for foreman}
-  spec.description   = %q{Mina plugin for foreman}
-  spec.homepage      = 'https://github.com/mina-deploy/mina-foreman'
+  spec.summary       = %q{Mina plugin for Yarn}
+  spec.description   = %q{Mina plugin for Yarn}
+  spec.homepage      = 'https://github.com/wafiq/mina-yarn'
   spec.license       = 'MIT'
 
   # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
@@ -30,5 +30,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'bundler', '~> 1.11'
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'rspec', '~> 3.0'
-  spec.add_dependency 'mina', '1.0.0.beta1'
+  spec.add_dependency 'mina', '1.2.3'
 end
