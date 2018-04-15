@@ -11,12 +11,12 @@
 # ### yarn_bin
 # Sets the yarn path.
 
-set_default :yarn_bin, 'yarn'
+set :yarn_bin, 'yarn'
 
 # ### yarn_options
 # Sets the options for installing packages via yarn.
 
-set_default :yarn_options, lambda { %{--production} }
+set :yarn_options, lambda { %{--production} }
 
 # ## Deploy tasks
 # These tasks are meant to be invoked inside deploy scripts, not invoked on
@@ -26,18 +26,18 @@ namespace :yarn do
   # ### yarn:install
   # Installs packages.
   desc "Install package dependencies using yarn."
-  task :install do
-    queue %{
+  task install: :environment do
+    command %{
       echo "-----> Installing package dependencies using yarn"
-      #{echo_cmd %[#{yarn_bin} install #{yarn_options}]}
+      #{echo_cmd %[#{fetch(:yarn_bin)} install #{fetch(:yarn_options)}]}
     }
   end
 
   # ### yarn:setup
   # Installs latest yarn.
   desc "Install latest version of yarn."
-  task :setup do
-    queue %{
+  task setup: :environment do
+    command %{
       echo "-----> Installing yarn"
       #{echo_cmd %[npm install -g yarn]}
     }
