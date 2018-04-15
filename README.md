@@ -20,19 +20,19 @@ Or install it yourself as:
 
 ## Usage
 
-   require 'mina/yarn'
+    require 'mina/yarn'
 
-   task :deploy => :environment do
-     deploy do
-       ...
-       invoke 'yarn:install'
-       ...
-     end
+    task :deploy => :environment do
+      deploy do
+        ...
+        invoke 'yarn:install'
+        ...
+      end
 
-     to :launch do
-       invoke 'yarn:setup'
-     end
-   end
+      to :launch do
+        invoke 'yarn:setup'
+      end
+    end
 
 # Configuration
 
